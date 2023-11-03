@@ -12,7 +12,7 @@ const createServer = () => {
   const app = express();
 
   app.use(express.json());
-  const ACCEPTED_ORIGINS = ["http://localhost:3000", "http://localhost:3001"];
+  const ACCEPTED_ORIGINS = ["http://localhost:5173", "http://localhost:3001"];
   const corsOptions = {
     origin: (origin, callback) => {
       if (!origin || ACCEPTED_ORIGINS.includes(origin)) {

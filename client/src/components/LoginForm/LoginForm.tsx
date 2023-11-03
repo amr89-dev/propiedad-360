@@ -1,7 +1,16 @@
 import { useState } from "react";
+import { login } from "../../services/auth.service.ts";
+
+export interface IFormData {
+  email: string;
+  password: string;
+}
 
 export const LoginForm = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState<IFormData>({
+    email: "",
+    password: "",
+  });
 
   const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -10,7 +19,7 @@ export const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("Formulario enviado");
+    login(formData);
   };
   return (
     <section>
