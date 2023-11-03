@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         sen: ["Sen", "sans-serif"],
       },
+      boxShadow: {
+        "3xl": "4px 4px #000000",
+      },
     },
   },
   plugins: [],
