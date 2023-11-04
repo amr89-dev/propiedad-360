@@ -1,8 +1,9 @@
 const express = require("express");
 const tenantRouter = express.Router();
-const Tenant = require("../db/models/tenant.model.js");
-
+const TenantService = require("../services/tenant.service.js");
+const tenantService = new TenantService();
 const validatorHandler = require("../middlewares/validator.handler.js");
+
 const {
   getArrendatarioSchema,
   createArrendatarioSchema,
@@ -11,7 +12,7 @@ const {
 
 tenantRouter.get("/", async (req, res, next) => {
   try {
-    const arrendatarios = await Arrendatario.findAll();
+    const arrendatarios = await tenantService.getTenant();
     res.status(200).json(arrendatarios);
   } catch (err) {
     next(err);
@@ -23,7 +24,7 @@ tenantRouter.post(
   validatorHandler(createArrendatarioSchema, "body"),
   async (req, res, next) => {
     try {
-      const newArrendatario = await Arrendatario.create(req.body);
+      const newArrendatario = await tenantService.createTenant(req.body);
       res.status(200).json(newArrendatario);
     } catch (err) {
       next(err);
@@ -37,7 +38,7 @@ tenantRouter.get(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const arrendatario = await Arrendatario.findByPk(id);
+      const arrendatario = await tenantService.getTenantById(id);
       res.status(200).json(arrendatario);
     } catch (err) {
       next(err);
@@ -52,9 +53,7 @@ tenantRouter.put(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const arrendatario = await Arrendatario.update(req.body, {
-        where: { id },
-      });
+      const arrendatario = await tenantService.updateTenant(id, req.body);
       res.status(200).json(arrendatario);
     } catch (err) {
       next(err);
@@ -68,7 +67,7 @@ tenantRouter.delete(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      await Arrendatario.destroy({ where: { id } });
+      await tenantService.deleteTenant(id);
       res.status(200).json({ message: "Arrendatario deleted" });
     } catch (err) {
       next(err);

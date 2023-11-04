@@ -4,7 +4,6 @@ import api from "./api";
 const getUsers = async () => {
   try {
     const response = await api.get("/users");
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -15,7 +14,6 @@ const getUsers = async () => {
 const createUser = async (userData: User) => {
   try {
     const response = await api.post("/user", userData);
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);

@@ -1,18 +1,19 @@
 const Joi = require("joi");
+const { createUserSchema } = require("./user.schema");
 
 const id = Joi.string().uuid();
 const name = Joi.string().min(3).max(50);
 const address = Joi.string().min(3).max(50);
 const contact_name = Joi.string().min(3).max(50);
 const phone = Joi.string().min(3).max(50);
-const email = Joi.string().email();
+const user = createUserSchema;
 
 const createInmobiliariaSchema = Joi.object({
   name: name.required(),
   address: address.required(),
   contact_name: contact_name.required(),
   phone: phone.required(),
-  email: email.required(),
+  user: user.required(),
 });
 
 const updateInmobiliariaSchema = Joi.object({
@@ -20,7 +21,7 @@ const updateInmobiliariaSchema = Joi.object({
   address,
   contact_name,
   phone,
-  email,
+  user,
 });
 
 const getInmobiliariaSchema = Joi.object({

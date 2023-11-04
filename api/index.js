@@ -7,7 +7,7 @@ const main = async () => {
   try {
     await db.authenticate();
     associations();
-    await db.sync();
+    await db.sync({ force: false });
     console.log("Database connected");
     const server = await createServer();
     server.listen(PORT, () => {

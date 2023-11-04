@@ -21,6 +21,10 @@ const User = db.define("user", {
     type: db.Sequelize.ENUM("admin", "user"),
     defaultValue: "user",
   },
+  status: {
+    type: db.Sequelize.ENUM("active", "inactive"),
+    defaultValue: "active",
+  },
 });
 
 module.exports = User;

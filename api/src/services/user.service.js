@@ -5,18 +5,19 @@ const bcrypt = require("bcrypt");
 class UserService {
   async create(data) {
     const hash = await bcrypt.hash(data.password, 10);
-    const newUser = {
+    const userData = {
       ...data,
       password: hash,
     };
-    await User.create(newUser);
-    delete newUser.password;
+    const newUser = await User.create(userData);
+    delete newUser.dataValues.password;
     return newUser;
   }
 
   async find() {
-    const users = User.findAll({});
-
+    const users = User.findAll({
+      attributes: { exclude: ["password"] },
+    });
     return users;
   }
   async findByEmail(email) {
@@ -36,8 +37,9 @@ class UserService {
 
   async update(id, changes) {
     const user = await this.findOne(id);
-    const rta = await user.update(changes);
-    return rta;
+    const userUpdated = await user.update(changes);
+    delete userUpdated.dataValues.password;
+    return userUpdated;
   }
 
   async delete(id) {

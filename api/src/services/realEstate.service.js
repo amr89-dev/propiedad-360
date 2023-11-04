@@ -3,7 +3,6 @@ const RealEstate = require("../db/models/real_estate.model");
 class RealEstateService {
   async getRealEstate() {
     const realEstate = await RealEstate.findAll();
-    if (!realEstate) throw new Error("Real Estate not found");
     return realEstate;
   }
 
@@ -13,23 +12,20 @@ class RealEstateService {
     return realEstate;
   }
   async createRealEstate(data) {
-    const realEstate = await RealEstate.create(data);
+    const realEstate = await RealEstate.create(data, {
+      include: ["user"],
+    });
+    delete realEstate.dataValues.user.dataValues.password;
     return realEstate;
   }
 
   async updateRealEstate(id, changes) {
     const realEstate = await this.getRealEstateById(id);
-    if (!realEstate) {
-      throw new Error("Real Estate not found");
-    }
-    const realEstateUpdated = await RealEstate.update(changes);
+    const realEstateUpdated = await realEstate.update(changes);
     return realEstateUpdated;
   }
   async deleteRealEstate(id) {
     const realEstate = await this.getRealEstateById(id);
-    if (!realEstate) {
-      throw new Error("Real Estate not found");
-    }
     await realEstate.destroy();
     return { message: "Real Estate deleted" };
   }

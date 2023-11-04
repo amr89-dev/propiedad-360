@@ -21,11 +21,18 @@ const associations = () => {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
-  RealEstate.hasMany(Tenant, {
-    foreignKey: {
-      field: "realEstateId",
-      allowNull: false,
-    },
+  Tenant.belongsToMany(RealEstate, {
+    through: "TenantRealEstate",
+    foreignKey: "tenantId",
+    otherKey: "realEstateId",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+
+  RealEstate.belongsToMany(Tenant, {
+    through: "TenantRealEstate",
+    foreignKey: "realEstateId",
+    otherKey: "tenantId",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
@@ -53,6 +60,15 @@ const associations = () => {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
+  Tenant.hasMany(Property, {
+    foreignKey: {
+      field: "tenantId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+
   Property.belongsTo(Owner, {
     foreignKey: {
       field: "ownerId",

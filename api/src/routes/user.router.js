@@ -49,7 +49,7 @@ userRouter.put(
   "/:id",
   validatorHandler(getUserSchema, "params"),
   validatorHandler(updateUserSchema, "body"),
-  async (req, res) => {
+  async (req, res, next) => {
     const { id } = req.params;
     const { body: user } = req;
     try {
