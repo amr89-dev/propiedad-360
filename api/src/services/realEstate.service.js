@@ -25,7 +25,7 @@ class RealEstateService {
     const realEstateUpdated = await RealEstate.update(changes);
     return realEstateUpdated;
   }
-  async deleteInmobiliaria(id) {
+  async deleteRealEstate(id) {
     const realEstate = await this.getRealEstateById(id);
     if (!realEstate) {
       throw new Error("Real Estate not found");

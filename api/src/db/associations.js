@@ -39,7 +39,7 @@ const associations = () => {
   });
   Owner.hasMany(Property, {
     foreignKey: {
-      field: "arrendadorId",
+      field: "ownerId",
       allowNull: false,
     },
     onDelete: "CASCADE",
@@ -55,7 +55,7 @@ const associations = () => {
   });
   Property.belongsTo(Owner, {
     foreignKey: {
-      field: "arrendadorId",
+      field: "ownerId",
       allowNull: false,
     },
     onDelete: "CASCADE",

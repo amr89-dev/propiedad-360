@@ -1,7 +1,7 @@
 const db = require("../db");
 const { DataTypes } = require("sequelize");
 
-const Arrendatario = db.define("arrendatario", {
+const Tenant = db.define("tenant", {
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -34,4 +34,4 @@ const Arrendatario = db.define("arrendatario", {
   },
 });
 
-module.exports = Arrendatario;
+module.exports = Tenant;

@@ -1,6 +1,6 @@
 const express = require("express");
-const arrendatarioRouter = express.Router();
-const Arrendatario = require("../db/models/tenant.model.js");
+const tenantRouter = express.Router();
+const Tenant = require("../db/models/tenant.model.js");
 
 const validatorHandler = require("../middlewares/validator.handler.js");
 const {
@@ -9,7 +9,7 @@ const {
   updateArrendatarioSchema,
 } = require("../middlewares/validationSchemas/arrendatario.schema.js");
 
-arrendatarioRouter.get("/", async (req, res, next) => {
+tenantRouter.get("/", async (req, res, next) => {
   try {
     const arrendatarios = await Arrendatario.findAll();
     res.status(200).json(arrendatarios);
@@ -18,7 +18,7 @@ arrendatarioRouter.get("/", async (req, res, next) => {
   }
 });
 
-arrendatarioRouter.post(
+tenantRouter.post(
   "/",
   validatorHandler(createArrendatarioSchema, "body"),
   async (req, res, next) => {
@@ -31,7 +31,7 @@ arrendatarioRouter.post(
   }
 );
 
-arrendatarioRouter.get(
+tenantRouter.get(
   "/:id",
   validatorHandler(getArrendatarioSchema, "params"),
   async (req, res, next) => {
@@ -45,7 +45,7 @@ arrendatarioRouter.get(
   }
 );
 
-arrendatarioRouter.put(
+tenantRouter.put(
   "/:id",
   validatorHandler(getArrendatarioSchema, "params"),
   validatorHandler(updateArrendatarioSchema, "body"),
@@ -62,7 +62,7 @@ arrendatarioRouter.put(
   }
 );
 
-arrendatarioRouter.delete(
+tenantRouter.delete(
   "/:id",
   validatorHandler(getArrendatarioSchema, "params"),
   async (req, res, next) => {
@@ -76,4 +76,4 @@ arrendatarioRouter.delete(
   }
 );
 
-module.exports = arrendatarioRouter;
+module.exports = tenantRouter;
