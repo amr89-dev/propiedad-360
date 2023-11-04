@@ -1,3 +1,4 @@
+import { User, UserId } from "../types";
 import api from "./api";
 
 const getUsers = async () => {
@@ -11,7 +12,7 @@ const getUsers = async () => {
   }
 };
 
-const createUser = async (userData) => {
+const createUser = async (userData: User) => {
   try {
     const response = await api.post("/user", userData);
     console.log(response.data);
@@ -22,7 +23,7 @@ const createUser = async (userData) => {
   }
 };
 
-const updateUser = async (userId, userData) => {
+const updateUser = async (userId: UserId, userData: User) => {
   try {
     const response = await api.put(`/user/${userId}`, userData);
     return response.data;
@@ -32,7 +33,7 @@ const updateUser = async (userId, userData) => {
   }
 };
 
-const deleteUser = async (userId) => {
+const deleteUser = async (userId: UserId) => {
   try {
     const response = await api.delete(`/user/${userId}`);
     return response.data;

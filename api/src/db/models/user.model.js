@@ -3,9 +3,9 @@ const db = require("../db");
 
 const User = db.define("user", {
   id: {
+    type: DataTypes.UUID,
     allowNull: false,
     primaryKey: true,
-    type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
   },
   email: {
