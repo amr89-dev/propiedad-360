@@ -22,11 +22,9 @@ const Property = db.define("property", {
   },
   images: {
     type: DataTypes.ARRAY(DataTypes.STRING),
-    allowNull: false,
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: false,
   },
 });
 

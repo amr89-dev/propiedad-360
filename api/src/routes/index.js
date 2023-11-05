@@ -4,6 +4,7 @@ const authRouter = require("./auth.router.js");
 const realEstateRouter = require("./real_estate.router.js");
 const tenantRouter = require("./tenant.router.js");
 const ownerRouter = require("./owner.router.js");
+const propertyRouter = require("./property.router.js");
 
 const routerApi = (app) => {
   const router = express.Router();
@@ -13,6 +14,7 @@ const routerApi = (app) => {
   router.use("/inmobiliaria", realEstateRouter);
   router.use("/arrandatario", tenantRouter);
   router.use("/arrendador", ownerRouter);
+  router.use("/propiedad", propertyRouter);
 };
 
 module.exports = routerApi;
