@@ -3,6 +3,7 @@ const RealEstate = require("./models/real_estate.model");
 const Owner = require("./models/owner.model");
 const Tenant = require("./models/tenant.model");
 const Property = require("./models/property.model");
+const Token = require("./models/token.model");
 
 const associations = () => {
   RealEstate.belongsTo(User, {
@@ -85,6 +86,23 @@ const associations = () => {
   Property.belongsTo(Owner, {
     foreignKey: {
       field: "ownerId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+  Token.belongsTo(User, {
+    foreignKey: {
+      field: "userId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+
+  User.hasOne(Token, {
+    foreignKey: {
+      field: "userId",
       allowNull: false,
     },
     onDelete: "CASCADE",

@@ -1,4 +1,5 @@
 const RealEstate = require("../db/models/real_estate.model");
+const bcrypt = require("bcrypt");
 
 class RealEstateService {
   async getRealEstate() {
@@ -12,7 +13,16 @@ class RealEstateService {
     return realEstate;
   }
   async createRealEstate(data) {
-    const realEstate = await RealEstate.create(data, {
+    const hash = await bcrypt.hash(data.user.password, 10);
+    const newData = {
+      ...data,
+      user: {
+        ...data.user,
+        profile: "agency",
+        password: hash,
+      },
+    };
+    const realEstate = await RealEstate.create(newData, {
       include: ["user"],
     });
     delete realEstate.dataValues.user.dataValues.password;

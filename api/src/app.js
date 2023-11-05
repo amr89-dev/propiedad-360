@@ -23,7 +23,7 @@ const createServer = () => {
     },
   };
   app.use(cors(corsOptions));
-
+  require("./utils/auth/index");
   routerApi(app);
 
   app.use(errorLogger);

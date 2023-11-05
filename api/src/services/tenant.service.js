@@ -1,12 +1,22 @@
 const Tenant = require("../db/models/tenant.model");
 const RealEstate = require("../db/models/real_estate.model");
+const bcrypt = require("bcrypt");
 
 class TenantService {
   async getTenant() {
     return await Tenant.findAll();
   }
   async createTenant(data) {
-    const tenant = await Tenant.create(data, {
+    const hash = await bcrypt.hash(data.user.password, 10);
+    const newData = {
+      ...data,
+      user: {
+        ...data.user,
+        profile: "tenant",
+        password: hash,
+      },
+    };
+    const tenant = await Tenant.create(newData, {
       include: ["user"],
     });
     const { real_estates } = data;
