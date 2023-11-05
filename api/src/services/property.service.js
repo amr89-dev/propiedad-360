@@ -11,9 +11,10 @@ class PropertyService {
     if (!property) throw new Error("Property not found");
     return property;
   }
-
+  a;
   async create(data) {
     const newProperty = await Property.create(data);
+
     return newProperty;
   }
 

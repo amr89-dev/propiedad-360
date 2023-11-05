@@ -82,7 +82,7 @@ const associations = () => {
     },
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
-  });
+  }); 
   Property.belongsTo(Owner, {
     foreignKey: {
       field: "ownerId",
