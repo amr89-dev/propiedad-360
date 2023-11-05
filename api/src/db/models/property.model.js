@@ -12,6 +12,16 @@ const Property = db.define("property", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  rooms: {
+    type: DataTypes.INTEGER,
+  },
+  bathrooms: {
+    type: DataTypes.INTEGER,
+  },
   rent: {
     type: DataTypes.INTEGER,
     allowNull: false,

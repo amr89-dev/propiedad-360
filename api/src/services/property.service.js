@@ -25,7 +25,7 @@ class PropertyService {
 
   async delete(id) {
     const property = await this.getById(id);
-    const deletedProperty = await property.destry();
+    const deletedProperty = await property.destroy();
     return { message: "Property deleted" };
   }
 }
