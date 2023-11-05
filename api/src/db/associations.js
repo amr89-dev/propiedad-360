@@ -13,22 +13,13 @@ const associations = () => {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
-  RealEstate.hasMany(Owner, {
-    foreignKey: {
-      field: "realEstateId",
-      allowNull: false,
-    },
+  RealEstate.belongsToMany(Owner, {
+    through: "OwnerRealEstate",
+    foreignKey: "realEstateId",
+    otherKey: "ownerId",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
-  Tenant.belongsToMany(RealEstate, {
-    through: "TenantRealEstate",
-    foreignKey: "tenantId",
-    otherKey: "realEstateId",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-
   RealEstate.belongsToMany(Tenant, {
     through: "TenantRealEstate",
     foreignKey: "realEstateId",
@@ -36,19 +27,11 @@ const associations = () => {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
-  Owner.belongsTo(User, {
-    foreignKey: {
-      field: "userId",
-      allowNull: false,
-    },
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  Owner.hasMany(Property, {
-    foreignKey: {
-      field: "ownerId",
-      allowNull: false,
-    },
+
+  Tenant.belongsToMany(RealEstate, {
+    through: "TenantRealEstate",
+    foreignKey: "tenantId",
+    otherKey: "realEstateId",
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
@@ -68,7 +51,37 @@ const associations = () => {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   });
-
+  Owner.belongsTo(User, {
+    foreignKey: {
+      field: "userId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+  Owner.hasMany(Property, {
+    foreignKey: {
+      field: "ownerId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+  Owner.belongsToMany(RealEstate, {
+    through: "OwnerRealEstate",
+    foreignKey: "ownerId",
+    otherKey: "realEstateId",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
+  Property.belongsTo(Tenant, {
+    foreignKey: {
+      field: "tenantId",
+      allowNull: false,
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  });
   Property.belongsTo(Owner, {
     foreignKey: {
       field: "ownerId",
